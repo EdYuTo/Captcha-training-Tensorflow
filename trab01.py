@@ -41,7 +41,7 @@ import argparse
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-d", "--dataset", default="dataset", help="name of the dataset folder (dataset / numbers)")
+ap.add_argument("-d", "--dataset", default="captcha", help="name of the dataset folder (captcha / chars)")
 ap.add_argument("-i", "--id", default=None, help="id to the tgz file on gdrive, you must pass the gdrive folder name as your dataset folder")
 ap.add_argument("-e", "--epochs", type=int, default=2, help="number of training iteractions")
 ap.add_argument("-p", "--plot", type=bool, nargs="?", const=True, default=False, help="bool whether plotting accuracy/loss or not")
@@ -49,8 +49,8 @@ ap.add_argument("-s", "--save", type=bool, nargs="?", const=True, default=False,
 ap.add_argument("-ep", "--exportpath", default=None, help="the path where to save the model")
 args = vars(ap.parse_args())
 
-dataset_id = "1pinqFs9jdiV9qGux_6OBwIWDpiiC4gqk" # =~ 256mb
-numbers_id = "1z3uH0rlPxFS7RutbPKPCflqXYnvS7omG" # =~ 6mb
+captcha_id = "16OCN8eF6Tja65SKOe_JciHLmY8DQY5bl" # =~ 256mb
+chars_id = "10y2T-DEQRQkH0xAJ8NGQIADrluEtomUq" # =~ 128mb
 
 def downloadDataset():
     if not os.path.exists(args["dataset"]):
@@ -59,10 +59,10 @@ def downloadDataset():
 
         if args["id"] != None:
             url += args["id"]
-        elif args["dataset"] == "dataset":
-            url += dataset_id
-        elif args["dataset"] == "numbers":
-            url += numbers_id
+        elif args["dataset"] == "captcha":
+            url += captcha_id
+        elif args["dataset"] == "chars":
+            url += chars_id
 
         gdown.download(url, output, quiet=False)
 

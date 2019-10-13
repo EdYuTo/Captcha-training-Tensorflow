@@ -6,3 +6,5 @@ test
 *.tgz
 dataset
 saved_models
+captcha
+chars
