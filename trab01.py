@@ -44,13 +44,13 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-d", "--dataset", default="dataset", help="name of the dataset folder (dataset / numbers)")
 ap.add_argument("-i", "--id", default=None, help="id to the tgz file on gdrive, you must pass the gdrive folder name as your dataset folder")
 ap.add_argument("-e", "--epochs", type=int, default=2, help="number of training iteractions")
-ap.add_argument("-p", "--plot", type=bool, nargs="?", const=True, default=False, help="whether plotting accuracy/loss or not")
-ap.add_argument("-s", "--save", type=bool, nargs="?", const=True, default=False, help="whether exporting the model or not")
+ap.add_argument("-p", "--plot", type=bool, nargs="?", const=True, default=False, help="bool whether plotting accuracy/loss or not")
+ap.add_argument("-s", "--save", type=bool, nargs="?", const=True, default=False, help="bool whether exporting the model to default path or not")
 ap.add_argument("-ep", "--exportpath", default=None, help="the path where to save the model")
 args = vars(ap.parse_args())
 
-dataset_id = "1pinqFs9jdiV9qGux_6OBwIWDpiiC4gqk"
-numbers_id = "1z3uH0rlPxFS7RutbPKPCflqXYnvS7omG"
+dataset_id = "1pinqFs9jdiV9qGux_6OBwIWDpiiC4gqk" # =~ 256mb
+numbers_id = "1z3uH0rlPxFS7RutbPKPCflqXYnvS7omG" # =~ 6mb
 
 def downloadDataset():
     if not os.path.exists(args["dataset"]):
@@ -112,23 +112,6 @@ if __name__ == "__main__":
         print("Label batch shape: ", label_batch.shape)
         break
 
-    '''# Run the classifier on the image batch
-    result_batch = classifier.predict(image_batch)
-    print("Result batch:", result_batch.shape)
-    predicted_class_names = imagenet_labels[np.argmax(result_batch, axis=-1)]
-    print("Predicted class names:", predicted_class_names)
-
-    # Check how these predictions line up with the images
-    plt.figure(figsize=(10,9))
-    plt.subplots_adjust(hspace=0.5)
-    for n in range(30):
-        plt.subplot(6,5,n+1)
-        plt.imshow(image_batch[n])
-        plt.title(predicted_class_names[n])
-        plt.axis('off')
-    _ = plt.suptitle("ImageNet predictions")
-    plt.show()'''
-
     # Download the headless model
     feature_extractor_url = "https://tfhub.dev/google/tf2-preview/mobilenet_v2/feature_vector/2"
 
@@ -169,7 +152,7 @@ if __name__ == "__main__":
         #plt.figure()
         plt.subplot(2, 1, 1)
         plt.ylabel("Loss")
-        plt.xlabel("Training Steps")
+        #plt.xlabel("Training Steps")
         plt.ylim([0,2])
         plt.plot(batch_stats_callback.batch_losses)
 
