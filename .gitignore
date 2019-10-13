@@ -1,0 +1,8 @@
+venv
+.vscode
+flower_photos
+numbers
+test
+*.tgz
+dataset
+saved_models
